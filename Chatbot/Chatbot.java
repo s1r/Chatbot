@@ -15,14 +15,14 @@ public class Chatbot {
     // 人工無脳の名前
     public String name;
     // 辞書
-    private ArrayList dic;
+    private ArrayList<String> dic;
     // 乱数生成器
     private Random rand;
 
     public Chatbot(String name) {
         this.name = name;
 
-        dic = new ArrayList();
+        dic = new ArrayList<String>();
         rand = new Random(System.currentTimeMillis());
 
         // 辞書のロード

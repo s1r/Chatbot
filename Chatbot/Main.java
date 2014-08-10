@@ -6,6 +6,10 @@ import java.io.*;
  */
 public class Main {
 	public static void main(String[] args) throws IOException{
+//		DatabaseConnection dbconn = new DatabaseConnection();
+		
+//		System.out.println(dbconn.getState());
+		
 		Chatbot chatbot = new Chatbot("人工無脳2号");
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
