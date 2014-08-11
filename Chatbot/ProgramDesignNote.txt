@@ -1,0 +1,10 @@
+入力
+	id
+	datetime
+	from
+	to		複数
+	text
+	tag		複数
+
+
+

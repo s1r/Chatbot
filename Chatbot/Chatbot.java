@@ -42,6 +42,14 @@ public class Chatbot {
         return response;
     }
 
+    public String getResponse(String fromName, String message) {
+        // 辞書からランダムに会話をひっぱってくる
+        String response = fromName + "さん、" + (String)dic.get(rand.nextInt(dic.size()));
+
+        return response;
+    }
+
+
     /**
      * 人工無脳の名前を返す
      * 

@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 /*
  * Created on  2007/03/10
@@ -9,25 +10,39 @@ import java.io.InputStreamReader;
 public class Main {
 	public static void main(String[] args) throws IOException{
 		DatabaseConnection dbconn = new DatabaseConnection();
-		
+
 		System.out.println(dbconn.getState());
-		
+
 		Chatbot chatbot = new Chatbot("人工無脳2号");
-		
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	
-	    // 入力メッセージを取得
+
 	    String input;
 	    String response ;
+	    Random rand;
+        rand = new Random(System.currentTimeMillis());
 
 	    while( true ){
+		    // 入力メッセージを取得
 	    	System.out.print("あなた: ");
 	    	input = br.readLine();
+
 	    	if ( input.length()==0 ) break;
-	    	
+
+	    	// 入力文字コード変換
+	    	String tempStr = new String(input.getBytes("UTF-8"), "UTF-8");
+	    	input = tempStr;
+
 	    	// 人工無脳の反応メッセージを取得
-	    	response = chatbot.getResponse(input);
-	    
+	    	Integer rn = rand.nextInt(3);
+	    	if ( rn == 0 ){
+	    		response = chatbot.getResponse(input);
+	    	}else if( rn == 1){
+	    		response = chatbot.getResponse("名無し", input);
+	    	}else{
+	    		response = input;
+	    	}
+
 	    	// 出力
 	    	System.out.println(chatbot.name + ": " + response);
 	    }

@@ -1,35 +1,34 @@
 
+å‚ç…§ãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒ¼ã«derby.jarã‚’è¿½åŠ ã™ã‚‹ã“ã¨ã€‚
+å®Ÿè¡Œæ™‚ãªã‚‰ã€java -classpath "c:\Program Files\Java\db-derby-bin\lib\derby.jar;." Main
 
 
-ŽQÆƒ‰ƒCƒuƒ‰ƒŠ[‚Éderby.jar‚ð’Ç‰Á‚·‚é‚±‚ÆB
-
-
-ƒe[ƒuƒ‹ì¬‚Ä‚·‚Æ
+ãƒ†ãƒ¼ãƒ–ãƒ«ä½œæˆã¦ã™ã¨
 
 >ij
 
 
-ij ƒo[ƒWƒ‡ƒ“ 10.8
+ij ãƒãƒ¼ã‚¸ãƒ§ãƒ³ 10.8
 ij> connect 'jdbc:derby:ChatbotDB';
 ij> create table test ( id char(4), name varchar(30));
-0 s‚ª‘}“ü/XV/íœ‚³‚ê‚Ü‚µ‚½
+0 è¡ŒãŒæŒ¿å…¥/æ›´æ–°/å‰Šé™¤ã•ã‚Œã¾ã—ãŸ
 ij> insert into test (id,name) values ('1','ABCDEFG');
-1 s‚ª‘}“ü/XV/íœ‚³‚ê‚Ü‚µ‚½
+1 è¡ŒãŒæŒ¿å…¥/æ›´æ–°/å‰Šé™¤ã•ã‚Œã¾ã—ãŸ
 ij> commit;
 ij> insert into test (id,name) values ('2','VWXYZ');
-1 s‚ª‘}“ü/XV/íœ‚³‚ê‚Ü‚µ‚½
-ij> insert into test (id,name) values ('3','‚ ‚¢‚¤‚¦‚¨');
-1 s‚ª‘}“ü/XV/íœ‚³‚ê‚Ü‚µ‚½
-ij> insert into test (id,name) values ('4','‚©‚«‚­‚¯‚±[[[');
-1 s‚ª‘}“ü/XV/íœ‚³‚ê‚Ü‚µ‚½
+1 è¡ŒãŒæŒ¿å…¥/æ›´æ–°/å‰Šé™¤ã•ã‚Œã¾ã—ãŸ
+ij> insert into test (id,name) values ('3','ã‚ã„ã†ãˆãŠ');
+1 è¡ŒãŒæŒ¿å…¥/æ›´æ–°/å‰Šé™¤ã•ã‚Œã¾ã—ãŸ
+ij> insert into test (id,name) values ('4','ã‹ããã‘ã“ãƒ¼ãƒ¼ãƒ¼');
+1 è¡ŒãŒæŒ¿å…¥/æ›´æ–°/å‰Šé™¤ã•ã‚Œã¾ã—ãŸ
 ij> commit;
 ij> select * from test;
 ID  |NAME
 -----------------------------------
 1   |ABCDEFG
 2   |VWXYZ
-3   |‚ ‚¢‚¤‚¦‚¨
-4   |‚©‚«‚­‚¯‚±[[[
+3   |ã‚ã„ã†ãˆãŠ
+4   |ã‹ããã‘ã“ãƒ¼ãƒ¼ãƒ¼
 
-4 s‚ª‘I‘ð‚³‚ê‚Ü‚µ‚½
+4 è¡ŒãŒé¸æŠžã•ã‚Œã¾ã—ãŸ
 ij> exit;

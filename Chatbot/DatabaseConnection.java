@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.HashSet;
 //import org.apache.derby.*;
 //derby.jarがライブラリーにあるかどうかチェック用。なければ↑これでエラーになる。
+//起動時にclasspath指定必要かも
+//java -classpath "c:\Program Files\Java\db-derby-bin\lib\derby.jar;." Main
 //@SuppressWarnings("unused")
 
 public class DatabaseConnection {
@@ -35,6 +37,10 @@ public class DatabaseConnection {
 		return false;
 	}
 
+	/*
+	 * checkInitial()
+	 * DB初期値のチェック
+	 */
 	private HashSet<String> checkInitial() {
 		// データベースのAPPスキーマに登録されているテーブル一覧
 		HashSet<String> existTableName = new HashSet<String>();
