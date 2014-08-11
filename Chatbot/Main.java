@@ -1,4 +1,6 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /*
  * Created on  2007/03/10
@@ -6,9 +8,9 @@ import java.io.*;
  */
 public class Main {
 	public static void main(String[] args) throws IOException{
-//		DatabaseConnection dbconn = new DatabaseConnection();
+		DatabaseConnection dbconn = new DatabaseConnection();
 		
-//		System.out.println(dbconn.getState());
+		System.out.println(dbconn.getState());
 		
 		Chatbot chatbot = new Chatbot("人工無脳2号");
 		

@@ -1,0 +1,35 @@
+
+
+
+参照ライブラリーにderby.jarを追加すること。
+
+
+テーブル作成てすと
+
+>ij
+
+
+ij バージョン 10.8
+ij> connect 'jdbc:derby:ChatbotDB';
+ij> create table test ( id char(4), name varchar(30));
+0 行が挿入/更新/削除されました
+ij> insert into test (id,name) values ('1','ABCDEFG');
+1 行が挿入/更新/削除されました
+ij> commit;
+ij> insert into test (id,name) values ('2','VWXYZ');
+1 行が挿入/更新/削除されました
+ij> insert into test (id,name) values ('3','あいうえお');
+1 行が挿入/更新/削除されました
+ij> insert into test (id,name) values ('4','かきくけこーーー');
+1 行が挿入/更新/削除されました
+ij> commit;
+ij> select * from test;
+ID  |NAME
+-----------------------------------
+1   |ABCDEFG
+2   |VWXYZ
+3   |あいうえお
+4   |かきくけこーーー
+
+4 行が選択されました
+ij> exit;
