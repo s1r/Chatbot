@@ -7,7 +7,7 @@ import java.util.Random;
 
 /*
  * 人工無脳クラス
- * 
+ *
  * Created on 2007/03/10
  */
 
@@ -31,33 +31,40 @@ public class Chatbot {
 
     /**
      * 入力メッセージに対する反応メッセージを返す
-     * 
+     *
      * @param message 入力メッセージ
      * @return 反応メッセージ
      */
-    public String getResponse(String message) {
+    public String getResponse(String fromName, String message) {
+        String response = message;
+
+    	// 辞書からランダムに会話をひっぱってくる
+    	Integer rn = rand.nextInt(3);
+    	if ( rn == 0 ){
+    		response = (String)dic.get(rand.nextInt(dic.size()));
+    	}else if( rn == 1){
+    		response = fromName + "さん、" + (String)dic.get(rand.nextInt(dic.size()));
+    	}
+        return response;
+    }
+    /* public String getResponse(String message) {
         // 辞書からランダムに会話をひっぱってくる
         String response = (String)dic.get(rand.nextInt(dic.size()));
-
         return response;
     }
+    */
 
-    public String getResponse(String fromName, String message) {
-        // 辞書からランダムに会話をひっぱってくる
-        String response = fromName + "さん、" + (String)dic.get(rand.nextInt(dic.size()));
-
-        return response;
-    }
 
 
     /**
      * 人工無脳の名前を返す
-     * 
+     *
      * @return 名前
      */
-    public String getName() {
+    /* public String getName() {
         return name;
     }
+    */
 
     /**
      * 辞書のロード

@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Random;
 
 /*
  * Created on  2007/03/10
@@ -19,8 +18,6 @@ public class Main {
 
 	    String input;
 	    String response ;
-	    Random rand;
-        rand = new Random(System.currentTimeMillis());
 
 	    while( true ){
 		    // 入力メッセージを取得
@@ -34,14 +31,7 @@ public class Main {
 	    	input = tempStr;
 
 	    	// 人工無脳の反応メッセージを取得
-	    	Integer rn = rand.nextInt(3);
-	    	if ( rn == 0 ){
-	    		response = chatbot.getResponse(input);
-	    	}else if( rn == 1){
-	    		response = chatbot.getResponse("名無し", input);
-	    	}else{
-	    		response = input;
-	    	}
+    		response = chatbot.getResponse("名無し", input);
 
 	    	// 出力
 	    	System.out.println(chatbot.name + ": " + response);
