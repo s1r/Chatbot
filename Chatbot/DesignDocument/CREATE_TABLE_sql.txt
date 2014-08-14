@@ -1,0 +1,43 @@
+DROP TABLE "word_status";
+DROP TABLE "statuses";
+DROP TABLE "words";
+
+
+
+CREATE TABLE "statuses" (
+  "status_id" VARCHAR(20) NOT NULL,
+  "user_id" VARCHAR(45),
+  "user_screen_name" VARCHAR(45),
+  "text" VARCHAR(420),
+  "created_at" Timestamp,
+  "in_reply_to_status_id" VARCHAR(45),
+  "in_reply_to_user_id" VARCHAR(45),
+  "in_reply_to_screen_name" VARCHAR(45),
+  PRIMARY KEY ("status_id"));
+
+CREATE TABLE "words" (
+  "word" VARCHAR(20) NOT NULL,
+  "importance" INT,
+  "update_time" VARCHAR(20),
+  PRIMARY KEY ("word"));
+
+CREATE TABLE "word_status" (
+  "word" VARCHAR(20),
+  "status_id" VARCHAR(20));
+
+
+create INDEX "fk_word_status_statuses_idx" on "word_status" ("status_id" ASC);
+create INDEX "fk_word_status_words1_idx"   on "word_status" ("word" ASC);
+
+alter table "word_status" add CONSTRAINT "fk_word_status_statuses"
+    FOREIGN KEY ("status_id")
+    REFERENCES "statuses" ("status_id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+
+alter table "word_status" add CONSTRAINT "fk_word_status_words"
+    FOREIGN KEY ("word")
+    REFERENCES "words" ("word")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
