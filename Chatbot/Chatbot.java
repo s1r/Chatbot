@@ -36,14 +36,15 @@ public class Chatbot {
      * @return 反応メッセージ
      */
     public String getResponse(String fromName, String message) {
-        String response = message;
+        //String response = message;
+        String response = "";
 
     	// 辞書からランダムに会話をひっぱってくる
     	Integer rn = rand.nextInt(3);
     	if ( rn == 0 ){
     		response = (String)dic.get(rand.nextInt(dic.size()));
     	}else if( rn == 1){
-    		response = fromName + "さん、" + (String)dic.get(rand.nextInt(dic.size()));
+    		response = (String)dic.get(rand.nextInt(dic.size())) + " #BABYMETAL";
     	}
         return response;
     }
