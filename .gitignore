@@ -1,3 +1,6 @@
 Chatbot/ChatbotDB/
 Chatbot/derby.log
 *.class
+*.bk
+*~
+
