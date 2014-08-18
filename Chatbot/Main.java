@@ -1,17 +1,62 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
-import twitter4j.*;
+import org.jargp.ArgumentProcessor;
+import org.jargp.BoolDef;
+import org.jargp.IntDef;
+import org.jargp.ParameterDef;
+import org.jargp.StringDef;
+
+import twitter4j.Status;
+import twitter4j.TwitterException;
+import twitter4j.UserMentionEntity;
 
 /*
  * Created on 2014/08/10
  */
 public class Main {
-	public static String BOT_NAME = "babymetalbot"; 
+	//引数処理用
+    private static int count;
+    private static boolean isDebug;
+    private static String text;
+    private static String statusid;
+    private static long statusid_l = 0L;
+	public static String BOT_NAME = "babymetalbot";
+
+	//引数処理用
+    private static ParameterDef[] parameterDefs = {
+        new IntDef('c', "count", "number of count"),
+        new BoolDef('d', "isDebug", "debug activation flag", true),
+        new StringDef('t', "text", "text as message"),
+        new StringDef('s', "statusid", "start status id")
+    };
+    public static void printFields() {
+        System.out.printf("count=%d, isDebug=%b, text=%s, statusid=%s%n", count, isDebug, text, statusid);
+    }
+
 
 	public static void main(String[] args) throws IOException{
+		//引数処理
+        Main mainapp = new Main();
+		ArgumentProcessor processor = new ArgumentProcessor(parameterDefs);
+		processor.processArgs(args, mainapp);
+
+		if(isDebug){
+			printFields();
+		}else{
+	    	processor.listParameters(79, System.out);
+	    	System.exit(-1);
+		}
+		if(!statusid.isEmpty()){
+			try{
+				statusid_l = Long.valueOf(statusid).longValue();
+			}catch(Exception e){
+				//e.printStackTrace();
+		    	processor.listParameters(79, System.out);
+		    	System.exit(-1);
+		    }
+		}
+
 		DatabaseConnection dbconn = new DatabaseConnection();
 
 		System.out.println(dbconn.getState());
@@ -25,6 +70,7 @@ public class Main {
 			Twitterbot twitterbot = new Twitterbot();
 
 			long lastSinceid = 501007049031839744L;
+			if(statusid_l != 0){ lastSinceid = statusid_l; }
 			statuses = twitterbot.getHomeTimeline( lastSinceid );
 			if ( !statuses.isEmpty() ){
 			    System.out.println("Showing home timeline.");
@@ -41,20 +87,20 @@ public class Main {
 
 			    	System.out.println(name + "(" + screenname + "):" + text);
 			        System.out.println("    " + statusid + " : " + createdate);
-			        
+
 			        if (status.isRetweet()){
 				    	String retscreenname = status.getRetweetedStatus().getUser().getScreenName();
 				    	String rettext = status.getRetweetedStatus().getText();
 			        	System.out.println("    Original-User : " + retscreenname);
 			        	System.out.println("    Original-Tweet: " + rettext);
 			        }
-			        
+
 			        UserMentionEntity[] UserMentionEntities = status.getUserMentionEntities();
 				    for (UserMentionEntity usermentionuntity : UserMentionEntities) {
 			        	System.out.println("    UserMention: " + usermentionuntity.getScreenName() + "(" + usermentionuntity.getId() + ")");
 			        }
 			    	// 人工無脳の反応メッセージを取得
-				    
+
 				    // 自身の発言は無視
 				    if (BOT_NAME.equals(screenname)){
 				    	System.out.println("  -->[" + BOT_NAME + ":response] (no response to my response)");
@@ -69,7 +115,7 @@ public class Main {
 				    	System.out.println(" ");
 				    }
 			    }
-				
+
 			}
 		}catch(TwitterException te){
 			te.printStackTrace();
@@ -99,6 +145,6 @@ public class Main {
 	    	// 出力
 	    	System.out.println(chatbot.name + ": " + response);
 	    }
-*/	    
+*/
 	}
 }
