@@ -17,11 +17,12 @@ import twitter4j.UserMentionEntity;
 public class Main {
 	//引数処理用
     private static int count;
-    private static boolean isDebug;
-    private static String text;
-    private static String statusid;
+    private static boolean isDebug = false;
+    private static String text ="";
+    private static String statusid = "";
     private static long statusid_l = 0L;
-	public static String BOT_NAME = "babymetalbot";
+	public static final String BOT_NAME = "babymetalbot";
+	private static Chatbot chatbot;
 
 	//引数処理用
     private static ParameterDef[] parameterDefs = {
@@ -30,7 +31,7 @@ public class Main {
         new StringDef('t', "text", "text as message"),
         new StringDef('s', "statusid", "start status id")
     };
-    public static void printFields() {
+    public static void printParamFields() {
         System.out.printf("count=%d, isDebug=%b, text=%s, statusid=%s%n", count, isDebug, text, statusid);
     }
 
@@ -42,7 +43,7 @@ public class Main {
 		processor.processArgs(args, mainapp);
 
 		if(isDebug){
-			printFields();
+			printParamFields();
 		}else{
 	    	processor.listParameters(79, System.out);
 	    	System.exit(-1);
@@ -57,20 +58,24 @@ public class Main {
 		    }
 		}
 
+		//変数初期化
 		DatabaseConnection dbconn = new DatabaseConnection();
-
 		System.out.println(dbconn.getState());
 
-		Chatbot chatbot = new Chatbot(BOT_NAME);
+		chatbot = new Chatbot(BOT_NAME);
 
-	    String response ;
+		if(!isDebug){
+			startTwitterChat();
+		}
+	}
 
-	    try{
-			List<Status> statuses;
-			Twitterbot twitterbot = new Twitterbot();
+    private static void startTwitterChat() {
+		List<Status> statuses;
+		Twitterbot twitterbot = new Twitterbot();
+		long lastSinceid = 501007049031839744L;
+		if(statusid_l != 0){ lastSinceid = statusid_l; }
 
-			long lastSinceid = 501007049031839744L;
-			if(statusid_l != 0){ lastSinceid = statusid_l; }
+		try{
 			statuses = twitterbot.getHomeTimeline( lastSinceid );
 			if ( !statuses.isEmpty() ){
 			    System.out.println("Showing home timeline.");
@@ -105,7 +110,7 @@ public class Main {
 				    if (BOT_NAME.equals(screenname)){
 				    	System.out.println("  -->[" + BOT_NAME + ":response] (no response to my response)");
 				    }else{
-				    	response = chatbot.getResponse(screenname, text);
+				    	String response = chatbot.getResponse(screenname, text);
 				    	// 出力
 					    if ("".equals(response)){
 					    	System.out.println("  -->[" + BOT_NAME + ":response] (response is null)");
@@ -115,7 +120,8 @@ public class Main {
 				    	System.out.println(" ");
 				    }
 			    }
-
+			}else{
+			    System.out.println("New tweets not found.");
 			}
 		}catch(TwitterException te){
 			te.printStackTrace();
