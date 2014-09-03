@@ -5,6 +5,10 @@
 	<classpathentry kind="lib" path="lib/derby.jar"/>
 	<classpathentry kind="lib" path="lib/twitter4j-core-4.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/jargp.jar"/>
-	<classpathentry kind="lib" path="lib/lucene-gosen-4.5.1-ipadic.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-gosen-4.5.1-ipadic.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://lucene-gosen.googlecode.com/svn/branches/javadoc/api/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path=""/>
 </classpath>

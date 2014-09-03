@@ -1,43 +1,60 @@
-DROP TABLE "word_status";
-DROP TABLE "statuses";
-DROP TABLE "words";
+DROP TABLE "WORD_WORDS";
+DROP TABLE "WORD_STATUS";
+DROP TABLE "STATUSES";
+DROP TABLE "WORDS";
 
 
 
-CREATE TABLE "statuses" (
-  "status_id" VARCHAR(20) NOT NULL,
-  "user_id" VARCHAR(45),
-  "user_screen_name" VARCHAR(45),
-  "text" VARCHAR(420),
-  "created_at" Timestamp,
-  "in_reply_to_status_id" VARCHAR(45),
-  "in_reply_to_user_id" VARCHAR(45),
-  "in_reply_to_screen_name" VARCHAR(45),
-  PRIMARY KEY ("status_id"));
+CREATE TABLE "STATUSES" (
+  "STATUS_ID" VARCHAR(20) NOT NULL,
+  "USER_ID" VARCHAR(45),
+  "USER_SCREEN_NAME" VARCHAR(45),
+  "TEXT" VARCHAR(420),
+  "CREATED_AT" TIMESTAMP,
+  "IN_REPLY_TO_STATUS_ID" VARCHAR(45),
+  "IN_REPLY_TO_USER_ID" VARCHAR(45),
+  "IN_REPLY_TO_SCREEN_NAME" VARCHAR(45),
+  PRIMARY KEY ("STATUS_ID"));
 
-CREATE TABLE "words" (
-  "word" VARCHAR(20) NOT NULL,
-  "importance" INT,
-  "update_time" VARCHAR(20),
-  PRIMARY KEY ("word"));
+CREATE TABLE "WORDS" (
+  "WORD" VARCHAR(20) NOT NULL,
+  "IMPORTANCE" INT,
+  "UPDATE_TIME" VARCHAR(20),
+  PRIMARY KEY ("WORD"));
 
-CREATE TABLE "word_status" (
-  "word" VARCHAR(20),
-  "status_id" VARCHAR(20));
+CREATE TABLE "WORD_STATUS" (
+  "WORD" VARCHAR(20),
+  "STATUS_ID" VARCHAR(20));
 
 
-create INDEX "fk_word_status_statuses_idx" on "word_status" ("status_id" ASC);
-create INDEX "fk_word_status_words1_idx"   on "word_status" ("word" ASC);
+CREATE INDEX "FK_WORD_STATUS_STATUSES_IDX" ON "WORD_STATUS" ("STATUS_ID" ASC);
+CREATE INDEX "FK_WORD_STATUS_WORDS1_IDX"   ON "WORD_STATUS" ("WORD" ASC);
 
-alter table "word_status" add CONSTRAINT "fk_word_status_statuses"
-    FOREIGN KEY ("status_id")
-    REFERENCES "statuses" ("status_id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-
-alter table "word_status" add CONSTRAINT "fk_word_status_words"
-    FOREIGN KEY ("word")
-    REFERENCES "words" ("word")
+ALTER TABLE "WORD_STATUS" ADD CONSTRAINT "FK_WORD_STATUS_STATUSES"
+    FOREIGN KEY ("STATUS_ID")
+    REFERENCES "STATUSES" ("STATUS_ID")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
+ALTER TABLE "WORD_STATUS" ADD CONSTRAINT "FK_WORD_STATUS_WORDS"
+    FOREIGN KEY ("WORD")
+    REFERENCES "WORDS" ("WORD")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+
+CREATE TABLE "WORD_WORDS" (
+  "WORD" VARCHAR(20),
+  "REF_WORD" VARCHAR(20));
+
+
+CREATE INDEX "FK_WORD_WORDS_WORDS_IDX" ON "WORD_WORDS" ("WORD" ASC);
+
+ALTER TABLE "WORD_WORDS" ADD CONSTRAINT "FK_WORD_TO_WORDS_WORDS1"
+    FOREIGN KEY ("WORD")
+    REFERENCES "WORDS" ("WORD")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+insert into words(word, importance, update_time) VALUES ('BABYMETAL', 1000, SUBSTR(VARCHAR(CURRENT_TIMESTAMP),1,19));
+commit;
